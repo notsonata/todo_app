@@ -1,16 +1,17 @@
 // add_task.php
 
 <?php
-require_once 'config.php';
+require 'config.php';
 if (isset($_POST['add'])) {
-    if ($_POST['task'] != "") {
+    if (!empty($_POST['task'])) {
         $task = $_POST['task'];
-
-        $addtasks = mysqli_query($db, 
-            "INSERT INTO `task` VALUES('', '$task', 'Pending')")
-            or
-            die(mysqli_error($db));
-        header('location:index.php');
+        
+        $stmt = $db->prepare("INSERT INTO task (task, status) VALUES (:task, 'Pending')");
+        $stmt->bindParam(':task', $task);
+        $stmt->execute();
+        
+        header('Location: index.php');
+        exit;
     }
 }
 ?>

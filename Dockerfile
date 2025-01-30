@@ -1,14 +1,10 @@
-# Use official PHP image with Apache
 FROM php:8.1-apache
 
-# Install mysqli extension
-RUN docker-php-ext-install mysqli
+# Install PostgreSQL dependencies
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    postgresql-client \
+    && docker-php-ext-install pdo pdo_pgsql
 
-# Enable Apache rewrite module
-RUN a2enmod rewrite
-
-# Copy application files
 COPY . /var/www/html/
-
-# Expose port 80
 EXPOSE 80
