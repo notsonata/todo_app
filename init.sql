@@ -1,7 +1,7 @@
-CREATE TABLE task (
-  task_id SERIAL PRIMARY KEY,
-  task VARCHAR(250) NOT NULL,
-  status VARCHAR(30) NOT NULL
+CREATE TABLE IF NOT EXISTS task (
+    task_id SERIAL PRIMARY KEY,
+    task VARCHAR(250) NOT NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'Pending'
 );
 
 INSERT INTO task (task, status) VALUES
